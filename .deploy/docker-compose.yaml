@@ -18,7 +18,7 @@ services:
       dockerfile: .deploy/php/Dockerfile
       args:
         USER: ${USER:-user}
-    entrypoint: ["/bin/sh", "-c", "php-fpm"]
+    entrypoint: ["/bin/sh", "-c", "composer install && yes | php artisan migrate:fresh --seed && yes |php-fpm"]
     environment:
       - DB_CONNECTION=pgsql
       - DB_HOST=db
