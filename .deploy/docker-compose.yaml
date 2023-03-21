@@ -20,6 +20,8 @@ services:
         USER: ${USER:-user}
     entrypoint: ["/bin/sh", "-c", "composer install && yes | php artisan migrate:fresh --seed && yes |php-fpm"]
     environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
       - DB_CONNECTION=pgsql
       - DB_HOST=db
       - DB_PORT=5432

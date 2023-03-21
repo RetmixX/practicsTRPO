@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->string('surname');
             $table->string('patronymic');
             $table->enum('sex', ['М', 'Ж']);
-            $table->integer('group_id');
+            $table->integer('group_id')->nullable();
         });
     }
 

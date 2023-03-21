@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Group;
 use App\Http\Controllers\Controller;
 use Domain\Group\Actions\UpdateGroupAction;
 use Domain\Group\DTO\GroupDTO;
+use Domain\Group\DTO\GroupFileDTO;
 use Domain\Group\DTO\UpdateGroupDTO;
 use Domain\Group\Models\Group;
 use Domain\Group\Models\Student;
@@ -26,8 +27,9 @@ class GroupController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(GroupFileDTO $data)
     {
+        dd(collect(json_decode($data->file->getContent())));
     }
 
     /**
