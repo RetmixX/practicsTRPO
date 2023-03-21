@@ -7,6 +7,7 @@ use Domain\Event\Models\Event;
 use Domain\Group\Models\Group;
 use Domain\Group\Models\Student;
 use Domain\Shared\Models\User;
+use Domain\Task\Models\Task;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,5 +25,7 @@ class DatabaseSeeder extends Seeder
         Student::factory(50)->create();
 
         Event::factory(20)->create();
+
+        Task::factory(100)->create();
     }
 }

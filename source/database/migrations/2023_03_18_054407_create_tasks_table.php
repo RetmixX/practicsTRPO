@@ -14,9 +14,11 @@ return new class extends Migration {
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
             $table->string('name');
             $table->text('description');
+            $table->enum('status', ['В работе', 'Отменен', 'Выполнен']);
+            $table->dateTime('date');
+            $table->integer('group_id');
         });
     }
 

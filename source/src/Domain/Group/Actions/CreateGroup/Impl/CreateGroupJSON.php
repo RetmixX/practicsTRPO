@@ -11,7 +11,6 @@ use Domain\Shared\Exceptions\AttributeError;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Psy\Util\Json;
 
 
 class CreateGroupJSON implements CreateGroup

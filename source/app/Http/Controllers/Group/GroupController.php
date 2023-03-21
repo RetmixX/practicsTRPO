@@ -7,19 +7,17 @@ use Domain\Group\Actions\AddStudentToGroupAction;
 use Domain\Group\Actions\CreateGroup\CreateGroup;
 use Domain\Group\Actions\RemoveStudentFromGroupAction;
 use Domain\Group\Actions\UpdateGroupAction;
-use Domain\Group\DTO\GroupDTO;
 use Domain\Group\DTO\GroupFileDTO;
 use Domain\Group\DTO\UpdateGroupDTO;
+use Domain\Group\Enums\GroupEnum;
 use Domain\Group\Models\Group;
 use Domain\Group\Models\Student;
 use Domain\Group\ViewModels\AddStudentToGroupViewModel;
-use Domain\Group\ViewModels\CreateGroupViewModel;
-use Domain\Group\ViewModels\IndexGroupsViewModel;
 use Domain\Group\ViewModels\RemoveStudentFromGroupViewModel;
-use Domain\Group\ViewModels\RetrieveGroupViewModel;
-use Domain\Group\ViewModels\UpdateGroupViewModel;
-use Domain\Shared\ViewModels\IndexObjectsViewModel;
-use Domain\Shared\ViewModels\RetrieveObjectViewModel;
+use Domain\Shared\ViewModels\CRUD\CreateObjectViewModel;
+use Domain\Shared\ViewModels\CRUD\IndexObjectsViewModel;
+use Domain\Shared\ViewModels\CRUD\RetrieveObjectViewModel;
+use Domain\Shared\ViewModels\CRUD\UpdateObjectViewModel;
 
 class GroupController extends Controller
 {
@@ -36,7 +34,7 @@ class GroupController extends Controller
      */
     public function store(GroupFileDTO $data, CreateGroup $createGroup)
     {
-        return new CreateGroupViewModel($createGroup->execute($data->file));
+        return new CreateObjectViewModel($createGroup->execute($data->file), GroupEnum::Create->value);
     }
 
     /**
@@ -52,7 +50,7 @@ class GroupController extends Controller
      */
     public function update(Group $group, UpdateGroupDTO $data)
     {
-        return new UpdateGroupViewModel(UpdateGroupAction::execute($group, $data));
+        return new UpdateObjectViewModel(UpdateGroupAction::execute($group, $data), GroupEnum::Update->value);
     }
 
     public function addStudentToGroup(Group $group, Student $student)

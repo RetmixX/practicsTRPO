@@ -2,8 +2,10 @@
 
 namespace Domain\Event\Models;
 
+use Carbon\Carbon;
 use Domain\Event\DTO\EventDTO;
 use Domain\Shared\Models\BaseModel;
+use Mehradsadeghi\FilterQueryString\FilterQueryString;
 
 
 /**
@@ -14,6 +16,8 @@ use Domain\Shared\Models\BaseModel;
  */
 class Event extends BaseModel
 {
+    use FilterQueryString;
+
     protected $table = 'global_events';
     protected string $dataClass = EventDTO::class;
     protected $fillable = [
@@ -21,4 +25,19 @@ class Event extends BaseModel
         'description',
         'date'
     ];
+
+    protected $filters = [
+        'startDate',
+        'endDate',
+    ];
+
+    public function startDate($query, $value)
+    {
+        return $query->where('date', '>=', Carbon::create($value)->format('Y-m-d'));
+    }
+
+    public function endDate($query, $value)
+    {
+        return $query->where('date', '<=', Carbon::create($value)->format('Y-m-d'));
+    }
 }

@@ -1,15 +1,14 @@
 <?php
 
-namespace Domain\Group\ViewModels;
+namespace Domain\Shared\ViewModels\CRUD;
 
-use Domain\Group\DTO\StudentDTO;
-use Domain\Group\DTO\TeacherDTO;
 use Domain\Shared\ViewModels\ViewModel;
+use Spatie\LaravelData\Data;
 
-class CreateWorkerViewModel extends ViewModel
+class UpdateObjectViewModel extends ViewModel
 {
     public function __construct(
-        public readonly StudentDTO|TeacherDTO $data,
+        public readonly Data $data,
         public readonly string $message,
     ) {
     }
@@ -19,7 +18,7 @@ class CreateWorkerViewModel extends ViewModel
         return $this->message;
     }
 
-    public function object(): StudentDTO|TeacherDTO
+    public function updateObject(): Data
     {
         return $this->data;
     }

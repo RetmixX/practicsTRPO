@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Workers;
 
 use App\Http\Controllers\Controller;
 use Domain\Group\DTO\TeacherDTO;
+use Domain\Group\Enums\TeacherEnum;
 use Domain\Group\Models\Teacher;
 use Domain\Group\ViewModels\CreateWorkerViewModel;
-use Domain\Shared\ViewModels\RetrieveObjectViewModel;
-use Illuminate\Http\Request;
+use Domain\Shared\ViewModels\CRUD\CreateObjectViewModel;
+use Domain\Shared\ViewModels\CRUD\IndexObjectsViewModel;
+use Domain\Shared\ViewModels\CRUD\RetrieveObjectViewModel;
 
 class TeacherController extends Controller
 {
@@ -16,16 +18,15 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        return Teacher::all()->map(fn(Teacher $teacher) => TeacherDTO::from($teacher));
+        return new IndexObjectsViewModel(new Teacher());
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(TeacherDTO $data)
+    public function store(TeacherDTO $data): CreateObjectViewModel
     {
-        $teacher = Teacher::create($data->all());
-        return new CreateWorkerViewModel(TeacherDTO::from($teacher), 'Работник создан');
+        return new CreateObjectViewModel($data, TeacherEnum::Create->value);
     }
 
     /**

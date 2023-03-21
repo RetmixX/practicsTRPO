@@ -18,5 +18,6 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
     Route::apiResource('teachers', \App\Http\Controllers\Workers\TeacherController::class);
 
     //event
+    Route::get('events/search', [\App\Http\Controllers\EventController::class, 'searchEvent']);
     Route::apiResource('events', \App\Http\Controllers\EventController::class);
 });

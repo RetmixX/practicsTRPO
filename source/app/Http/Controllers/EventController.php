@@ -2,58 +2,54 @@
 
 namespace App\Http\Controllers;
 
+use Domain\Event\Action\CreateEventAction;
+use Domain\Event\Action\UpdateEventAction;
 use Domain\Event\DTO\EventDTO;
+use Domain\Event\DTO\UpdateEventDTO;
+use Domain\Event\Enums\EventEnum;
 use Domain\Event\Models\Event;
-use Domain\Event\ViewModels\AllEventsViewModel;
-use Domain\Shared\ViewModels\RetrieveObjectViewModel;
-use Illuminate\Http\Request;
-use Ramsey\Collection\Collection;
+use Domain\Event\ViewModels\SearchEventViewModel;
+use Domain\Shared\ViewModels\CRUD\CreateObjectViewModel;
+use Domain\Shared\ViewModels\CRUD\IndexObjectsViewModel;
+use Domain\Shared\ViewModels\CRUD\RetrieveObjectViewModel;
+use Domain\Shared\ViewModels\CRUD\UpdateObjectViewModel;
 
 class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): AllEventsViewModel
+    public function index(): IndexObjectsViewModel
     {
-        return new AllEventsViewModel();
+        return new IndexObjectsViewModel(new Event());
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store()
+    public function store(EventDTO $data)
     {
+        return new CreateObjectViewModel(CreateEventAction::execute($data), EventEnum::Create->value);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Event $event)
+    public function show(Event $event): RetrieveObjectViewModel
     {
         return new RetrieveObjectViewModel($event);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function searchEvent(): SearchEventViewModel
     {
-        //
+        return new SearchEventViewModel();
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * Update the specified resource in storage.
      */
-    public function destroy($id)
+    public function update(Event $event, UpdateEventDTO $data)
     {
-        //
+        return new UpdateObjectViewModel(UpdateEventAction::execute($event, $data), EventEnum::Update->value);
     }
 }
