@@ -3,6 +3,7 @@
 namespace Domain\Group\Models;
 
 
+use Domain\Group\DTO\StudentDTO;
 use Domain\Shared\Models\BaseModel;
 
 /**
@@ -15,6 +16,7 @@ use Domain\Shared\Models\BaseModel;
  */
 class Student extends BaseModel
 {
+    protected string $dataClass = StudentDTO::class;
     protected $fillable = [
         'name',
         'surname',

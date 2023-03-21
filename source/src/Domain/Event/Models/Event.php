@@ -1,7 +1,8 @@
 <?php
 
-namespace Domain\Event;
+namespace Domain\Event\Models;
 
+use Domain\Event\DTO\EventDTO;
 use Domain\Shared\Models\BaseModel;
 
 
@@ -13,6 +14,8 @@ use Domain\Shared\Models\BaseModel;
  */
 class Event extends BaseModel
 {
+    protected $table = 'global_events';
+    protected string $dataClass = EventDTO::class;
     protected $fillable = [
         'name',
         'description',

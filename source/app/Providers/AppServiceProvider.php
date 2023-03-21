@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use Domain\Group\Actions\CreateGroup\CreateGroup;
+use Domain\Group\Actions\CreateGroup\Impl\CreateGroupJSON;
+use Domain\Group\Actions\CreateGroup\Impl\Test;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +16,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(CreateGroup::class, function ($app){
+            return new CreateGroupJSON();
+        });
     }
 
     /**

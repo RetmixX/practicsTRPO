@@ -2,6 +2,7 @@
 
 namespace Domain\Group\Models;
 
+use Domain\Group\DTO\TeacherDTO;
 use Domain\Shared\Models\BaseModel;
 
 /**
@@ -13,6 +14,7 @@ use Domain\Shared\Models\BaseModel;
  */
 class Teacher extends BaseModel
 {
+    protected string $dataClass = TeacherDTO::class;
     protected $fillable = [
         'name',
         'surname',

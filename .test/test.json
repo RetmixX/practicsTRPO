@@ -1,0 +1,24 @@
+{
+  "name": "Иваново",
+  "teacher": {
+    "name": "Test1",
+    "surname": "Test2",
+    "patronymic": "Test3",
+    "sex": "Ж"
+  },
+
+  "students": [
+    {
+      "name": "TestS1",
+      "surname": "TestS2",
+      "patronymic": "TestS3",
+      "sex": "Ж"
+    },
+    {
+      "name": "TestS11",
+      "surname": "TestS21",
+      "patronymic": "TestS31",
+      "sex": "М"
+    }
+  ]
+}

@@ -2,6 +2,7 @@
 
 namespace Domain\Group\Models;
 
+use Domain\Group\DTO\GroupDTO;
 use Domain\Shared\Models\BaseModel;
 use Domain\Task\Task;
 use Illuminate\Database\Eloquent\Collection;
@@ -20,6 +21,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class Group extends BaseModel
 {
+    protected string $dataClass = GroupDTO::class;
     protected $fillable = [
         'name',
         'teacher_id',
@@ -35,7 +37,7 @@ class Group extends BaseModel
         return $this->hasMany(Student::class);
     }
 
-    public function groupTasks():BelongsToMany
+    public function groupTasks(): BelongsToMany
     {
         return $this->belongsToMany(Task::class, 'groups_tasks')
             ->withPivot(['date']);

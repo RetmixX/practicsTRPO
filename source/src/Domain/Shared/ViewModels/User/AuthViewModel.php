@@ -10,14 +10,8 @@ use Laravel\Sanctum\NewAccessToken;
 class AuthViewModel extends ViewModel
 {
     public function __construct(
-        public readonly User $user,
         public readonly NewAccessToken $token,
     ) {
-    }
-
-    public function user(): UserDTO
-    {
-        return UserDTO::from($this->user);
     }
 
     public function token(): string

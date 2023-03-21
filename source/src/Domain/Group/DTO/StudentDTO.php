@@ -29,4 +29,15 @@ class StudentDTO extends Data
         ]);
     }
 
+    public static function rules(): array
+    {
+        return [
+            'id' => 'prohibited',
+            'name' => 'required|string|min:1|max:100',
+            'surname' => 'required|string|min:1|max:100',
+            'patronymic' => 'required|string|min:1|max:100',
+            'sex' => 'required|string|max:1|in:М,Ж',
+            'group_id' => 'prohibited',
+        ];
+    }
 }

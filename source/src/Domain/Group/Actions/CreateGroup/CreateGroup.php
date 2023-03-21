@@ -7,5 +7,5 @@ use Illuminate\Http\UploadedFile;
 
 interface CreateGroup
 {
-    public static function execute(UploadedFile $file): GroupDTO;
+    public function execute(UploadedFile $file): GroupDTO;
 }

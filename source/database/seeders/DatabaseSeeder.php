@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Domain\Event\Models\Event;
 use Domain\Group\Models\Group;
 use Domain\Group\Models\Student;
 use Domain\Shared\Models\User;
@@ -21,5 +22,7 @@ class DatabaseSeeder extends Seeder
 
         Group::factory(10)->create();
         Student::factory(50)->create();
+
+        Event::factory(20)->create();
     }
 }

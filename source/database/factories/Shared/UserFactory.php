@@ -4,6 +4,7 @@ namespace Database\Factories\Shared;
 
 use Domain\Shared\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 class UserFactory extends Factory
 {
@@ -13,7 +14,7 @@ class UserFactory extends Factory
     {
         return [
             'email' => $this->faker->unique()->safeEmail(),
-            'password' => bcrypt($this->faker->password()),
+            'password' => Hash::make('password'),
             'is_active' => $this->faker->boolean(),
         ];
     }

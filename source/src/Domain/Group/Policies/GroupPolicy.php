@@ -27,13 +27,13 @@ class GroupPolicy
     {
     }
 
-    public function addStudent(User $user, Group $group, Student $student)
-    {
-        return $group->students->contains->contains($student->id) && is_null($student->group_id);
-    }
-
     public function delete(User $user, Group $group): bool
     {
+    }
+
+    public function removeStudentFromGroup(User $user, Group $group, Student $student): bool
+    {
+        return $group->students->pluck('id')->contains($student->id);
     }
 
     public function restore(User $user, Group $group): bool
