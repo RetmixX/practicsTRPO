@@ -18,6 +18,7 @@ use Domain\Shared\ViewModels\CRUD\CreateObjectViewModel;
 use Domain\Shared\ViewModels\CRUD\IndexObjectsViewModel;
 use Domain\Shared\ViewModels\CRUD\RetrieveObjectViewModel;
 use Domain\Shared\ViewModels\CRUD\UpdateObjectViewModel;
+use Illuminate\Http\JsonResponse;
 
 class GroupController extends Controller
 {
@@ -34,7 +35,10 @@ class GroupController extends Controller
      */
     public function store(GroupFileDTO $data, CreateGroup $createGroup)
     {
-        return new CreateObjectViewModel($createGroup->execute($data->file), GroupEnum::Create->value);
+        return response()->json(
+            new CreateObjectViewModel($createGroup->execute($data->file), GroupEnum::Create->value),
+            201
+        );
     }
 
     /**
@@ -48,9 +52,12 @@ class GroupController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Group $group, UpdateGroupDTO $data)
+    public function update(Group $group, UpdateGroupDTO $data): JsonResponse
     {
-        return new UpdateObjectViewModel(UpdateGroupAction::execute($group, $data), GroupEnum::Update->value);
+        return response()->json(
+            new UpdateObjectViewModel(UpdateGroupAction::execute($group, $data), GroupEnum::Update->value),
+            201
+        );
     }
 
     public function addStudentToGroup(Group $group, Student $student)

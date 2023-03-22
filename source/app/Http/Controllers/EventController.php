@@ -13,6 +13,7 @@ use Domain\Shared\ViewModels\CRUD\CreateObjectViewModel;
 use Domain\Shared\ViewModels\CRUD\IndexObjectsViewModel;
 use Domain\Shared\ViewModels\CRUD\RetrieveObjectViewModel;
 use Domain\Shared\ViewModels\CRUD\UpdateObjectViewModel;
+use Illuminate\Http\JsonResponse;
 
 class EventController extends Controller
 {
@@ -27,9 +28,12 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(EventDTO $data)
+    public function store(EventDTO $data): JsonResponse
     {
-        return new CreateObjectViewModel(CreateEventAction::execute($data), EventEnum::Create->value);
+        return response()->json(
+            new CreateObjectViewModel(CreateEventAction::execute($data), EventEnum::Create->value),
+            201
+        );
     }
 
     /**

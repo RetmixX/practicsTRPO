@@ -4,9 +4,6 @@ namespace Domain\Group\DTO;
 
 use Domain\Group\Models\Group;
 use Domain\Group\Models\Student;
-use Domain\Group\Models\Teacher;
-use Illuminate\Http\Request;
-use Illuminate\Support\Optional;
 use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Attributes\WithoutValidation;
 use Spatie\LaravelData\Data;
@@ -19,7 +16,7 @@ class GroupDTO extends Data
         public readonly int $id,
         public readonly string $name,
         #[WithoutValidation]
-        public readonly TeacherDTO $teacher,
+        public readonly Lazy|TeacherDTO $teacher,
         #[WithoutValidation]
         #[DataCollectionOf(StudentDTO::class)]
         public readonly Lazy|DataCollection $students,
@@ -31,7 +28,7 @@ class GroupDTO extends Data
         return self::from([
             'id' => $group->id,
             'name' => $group->name,
-            'teacher' => TeacherDTO::from($group->chiefGroup),
+            'teacher' => Lazy::create(fn()=>TeacherDTO::from($group->chiefGroup))->defaultIncluded(),
             'students' => Lazy::create(fn() => $group->students
                 ->map(fn(Student $student) => StudentDTO::from($student)))->defaultIncluded(),
         ]);

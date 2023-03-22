@@ -11,6 +11,7 @@ use Domain\Group\ViewModels\CreateWorkerViewModel;
 use Domain\Shared\ViewModels\CRUD\CreateObjectViewModel;
 use Domain\Shared\ViewModels\CRUD\IndexObjectsViewModel;
 use Domain\Shared\ViewModels\CRUD\RetrieveObjectViewModel;
+use Illuminate\Http\JsonResponse;
 
 class StudentController extends Controller
 {
@@ -25,9 +26,12 @@ class StudentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StudentDTO $data): CreateObjectViewModel
+    public function store(StudentDTO $data): JsonResponse
     {
-        return new CreateObjectViewModel(CreateStudentAction::execute($data), StudentEnum::Create->value);
+        return response()->json(
+            new CreateObjectViewModel(CreateStudentAction::execute($data), StudentEnum::Create->value),
+            201
+        );
     }
 
     /**

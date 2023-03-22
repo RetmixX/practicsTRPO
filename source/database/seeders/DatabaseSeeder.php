@@ -19,7 +19,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->create(['email' => 'retmix@gmail.com', 'is_active' => true]);
+        User::factory()->create(['email' => 'retmix@gmail.com', 'active' => true]);
+
+        User::factory()->create(['email' => 'test@gmail.com']);
 
         Group::factory(10)->create();
         Student::factory(50)->create();

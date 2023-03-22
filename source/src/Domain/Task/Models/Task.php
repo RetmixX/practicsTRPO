@@ -2,11 +2,14 @@
 
 namespace Domain\Task\Models;
 
+use Carbon\Carbon;
 use Domain\Group\Models\Group;
 use Domain\Shared\Models\BaseModel;
+use Domain\Task\DTO\TaskDTO;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Mehradsadeghi\FilterQueryString\FilterQueryString;
 
 
 /**
@@ -20,6 +23,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class Task extends BaseModel
 {
+    use FilterQueryString;
+
+    protected string $dataClass = TaskDTO::class;
+
     protected $fillable = [
         'name',
         'description',
@@ -31,5 +38,26 @@ class Task extends BaseModel
     public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class, 'group_id');
+    }
+
+    protected $filters = [
+        'status',
+        'startDate',
+        'endDate',
+    ];
+
+    public function status($query, $value)
+    {
+        return $query->where('status', $value);
+    }
+
+    public function startDate($query, $value)
+    {
+        return $query->where('date', '>=', Carbon::create($value)->format('Y-m-d'));
+    }
+
+    public function endDate($query, $value)
+    {
+        return $query->where('date', '<=', Carbon::create($value)->format('Y-m-d'));
     }
 }

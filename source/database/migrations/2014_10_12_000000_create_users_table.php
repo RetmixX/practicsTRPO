@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('email')->unique();
             $table->string('password');
-            $table->boolean('is_active')->default(false);
+            $table->boolean('active')->default(false);
             $table->rememberToken();
 
         });
