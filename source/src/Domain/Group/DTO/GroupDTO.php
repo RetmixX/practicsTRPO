@@ -28,9 +28,9 @@ class GroupDTO extends Data
         return self::from([
             'id' => $group->id,
             'name' => $group->name,
-            'teacher' => Lazy::create(fn()=>TeacherDTO::from($group->chiefGroup))->defaultIncluded(),
+            'teacher' => Lazy::create(fn()=>TeacherDTO::from($group->chiefGroup)),
             'students' => Lazy::create(fn() => $group->students
-                ->map(fn(Student $student) => StudentDTO::from($student)))->defaultIncluded(),
+                ->map(fn(Student $student) => StudentDTO::from($student))),
         ]);
     }
 }

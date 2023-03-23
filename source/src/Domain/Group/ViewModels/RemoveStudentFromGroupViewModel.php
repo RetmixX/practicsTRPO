@@ -21,7 +21,7 @@ class RemoveStudentFromGroupViewModel extends ViewModel
 
     public function updateObject(): GroupDTO
     {
-        return $this->data;
+        return $this->data->include('teacher', 'students');
     }
 
 }

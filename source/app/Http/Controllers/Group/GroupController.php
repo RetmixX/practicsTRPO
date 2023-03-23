@@ -7,6 +7,7 @@ use Domain\Group\Actions\AddStudentToGroupAction;
 use Domain\Group\Actions\CreateGroup\CreateGroup;
 use Domain\Group\Actions\RemoveStudentFromGroupAction;
 use Domain\Group\Actions\UpdateGroupAction;
+use Domain\Group\DTO\GroupDTO;
 use Domain\Group\DTO\GroupFileDTO;
 use Domain\Group\DTO\UpdateGroupDTO;
 use Domain\Group\Enums\GroupEnum;
@@ -14,6 +15,7 @@ use Domain\Group\Models\Group;
 use Domain\Group\Models\Student;
 use Domain\Group\ViewModels\AddStudentToGroupViewModel;
 use Domain\Group\ViewModels\RemoveStudentFromGroupViewModel;
+use Domain\Group\ViewModels\RetrieveGroupViewModel;
 use Domain\Shared\ViewModels\CRUD\CreateObjectViewModel;
 use Domain\Shared\ViewModels\CRUD\IndexObjectsViewModel;
 use Domain\Shared\ViewModels\CRUD\RetrieveObjectViewModel;
@@ -36,7 +38,9 @@ class GroupController extends Controller
     public function store(GroupFileDTO $data, CreateGroup $createGroup)
     {
         return response()->json(
-            new CreateObjectViewModel($createGroup->execute($data->file), GroupEnum::Create->value),
+            new CreateObjectViewModel(
+                $createGroup->execute($data->file)
+                    ->include('teacher', 'students'), GroupEnum::Create->value),
             201
         );
     }
@@ -44,9 +48,9 @@ class GroupController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Group $group): RetrieveObjectViewModel
+    public function show(Group $group): RetrieveGroupViewModel
     {
-        return new RetrieveObjectViewModel($group);
+        return new RetrieveGroupViewModel(GroupDTO::from($group)->include('teacher', 'students'));
     }
 
     /**

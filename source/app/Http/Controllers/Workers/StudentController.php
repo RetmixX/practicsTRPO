@@ -7,7 +7,6 @@ use Domain\Group\Actions\Workers\CreateStudentAction;
 use Domain\Group\DTO\StudentDTO;
 use Domain\Group\Enums\StudentEnum;
 use Domain\Group\Models\Student;
-use Domain\Group\ViewModels\CreateWorkerViewModel;
 use Domain\Shared\ViewModels\CRUD\CreateObjectViewModel;
 use Domain\Shared\ViewModels\CRUD\IndexObjectsViewModel;
 use Domain\Shared\ViewModels\CRUD\RetrieveObjectViewModel;

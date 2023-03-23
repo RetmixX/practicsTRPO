@@ -14,7 +14,7 @@ class AddStudentToGroupAction
     public static function execute(Group $group, Student $student)
     {
         throw_unless(is_null($student->group_id),
-            GroupError::class, message: 'Студент состоит в другой группе');
+            GroupError::class, message: 'Ученик состоит в другой группе');
 
         try {
             DB::beginTransaction();
@@ -26,7 +26,7 @@ class AddStudentToGroupAction
             return GroupDTO::from($group);
         } catch (\Exception $exception) {
             DB::rollBack();
-            throw new UpdateGroupError(message: 'При добавлении студента произошла ошибка');
+            throw new UpdateGroupError(message: 'При добавлении ученика произошла ошибка');
         }
     }
 }

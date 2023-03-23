@@ -7,7 +7,6 @@ use Domain\Group\Actions\Workers\CreateTeacherAction;
 use Domain\Group\DTO\TeacherDTO;
 use Domain\Group\Enums\TeacherEnum;
 use Domain\Group\Models\Teacher;
-use Domain\Group\ViewModels\CreateWorkerViewModel;
 use Domain\Shared\ViewModels\CRUD\CreateObjectViewModel;
 use Domain\Shared\ViewModels\CRUD\IndexObjectsViewModel;
 use Domain\Shared\ViewModels\CRUD\RetrieveObjectViewModel;

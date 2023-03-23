@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Domain\Shared\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class AccountTest extends TestCase
@@ -18,7 +19,11 @@ class AccountTest extends TestCase
         parent::setUp();
         Artisan::call('migrate:fresh', ['--seed' => true]);
         $this->admin = User::all()->where('email', 'retmix@gmail.com')->first();
-        $this->notApprovedUser = User::all()->where('active', false)->first();
+        $this->notApprovedUser = is_null(User::all()->where('active', false)->first()) ? User::create([
+            'email' => 'java@gmail.com',
+            'password' => Hash::make('password'),
+            'active' => false
+        ]) : User::all()->where('active', false)->first();
     }
 
     public function test_successful_authorize()

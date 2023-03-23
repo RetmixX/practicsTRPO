@@ -36,12 +36,11 @@ class CreateGroupJSON implements CreateGroup
                 'group_id' => $group->id
             ]));
             DB::commit();
+            return GroupDTO::from($group);
         } catch (\Exception $ex) {
             DB::rollBack();
             throw new AttributeError(message: $ex->getMessage());
         }
-
-        return GroupDTO::from($group);
     }
 
     private function checkStructureJSON(Collection $data): void
